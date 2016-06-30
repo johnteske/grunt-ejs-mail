@@ -1,0 +1,16 @@
+# system files
+.DS_Store
+._*
+
+# generated files
+node_modules
+.sass-cache
+*.css.map
+npm-debug.log
+
+# default directories
+templates
+src
+build
+dist
+archive

@@ -1,0 +1,13 @@
+{
+    "name": "grunt-ejs-mail",
+    "version": "0.1.0",
+    "description": "ejs-compiled HTML emails",
+    "license": "MIT",
+    "repository": {
+        "type": "git"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-ejs": "^0.3.0"
+    }
+}
