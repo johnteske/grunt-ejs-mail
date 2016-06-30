@@ -1,7 +1,11 @@
 module.exports = function(grunt) {
 
+    var project = 'project';
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        // add global data
+        // company, logo, social links, etc.
         // data: grunt.file.readJSON('data.json'),
 
         ejs: {
@@ -11,6 +15,9 @@ module.exports = function(grunt) {
                     url: function(url) {
                         return 'http://example.com/' + url;
                     },
+                    getData: function(path) {
+                        return grunt.file.readYAML('src/' + project + '/' + path);
+                    }
                 },
                 cwd: 'src/',
                 src: '**/*.ejs', // '!partials/**/*'],
