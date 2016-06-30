@@ -12,7 +12,8 @@ module.exports = function(grunt) {
                         return 'http://example.com/' + url;
                     },
                 },
-                src: ['src/**/*.ejs', '!partials/**/*'],
+                cwd: 'src/',
+                src: '**/*.ejs', // '!partials/**/*'],
                 dest: 'dist/',
                 expand: true,
                 ext: '.html',
