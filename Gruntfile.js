@@ -24,11 +24,31 @@ module.exports = function(grunt) {
                 dest: 'dist/',
                 expand: true,
                 ext: '.html',
-                },
             },
-        });
+        },
+
+        watch: {
+            source: {
+                files: 'src/**/*.ejs',
+                tasks: 'ejs',
+                options: {
+                    spawn: false,
+                    atBegin: true
+                }
+            },
+            configFiles: {
+                files: ['Gruntfile.js'],
+                options: {
+                    reload: true
+                }
+            }
+        },
+
+    });
 
     grunt.loadNpmTasks('grunt-ejs');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     grunt.registerTask('default', ['ejs']);
 
 };
