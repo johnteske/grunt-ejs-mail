@@ -2,6 +2,21 @@ module.exports = function(grunt) {
 
     var project = 'project';
 
+    // load helpers
+    var helper = {};
+
+    var helperFiles = grunt.file.expand( {cwd: 'helpers'}, ['**/*.js'] );
+    helperFiles.forEach(
+        function(fileName) {
+            var basename = fileName.split('.')[0];
+            helper[basename] = require('./helpers/' + fileName)[basename];
+        }
+    );
+
+    // testing
+    helper.dummy('http://example.com', 'null');
+    helper.url_utm('http://example.com', 'CAMPAIGN');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         // add global data
@@ -11,6 +26,7 @@ module.exports = function(grunt) {
         ejs: {
             all: {
                 options: {
+                    helper: helper,
                     title: 'My Email',
                     url: function(url) {
                         return 'http://example.com/' + url;
