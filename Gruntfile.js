@@ -47,7 +47,7 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    cwd: 'src/',
+                    cwd: project,
                     src: ['*.scss'],
                     dest: project + 'styles',
                     ext: '.css'
@@ -75,6 +75,7 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-ejs');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['ejs']);
