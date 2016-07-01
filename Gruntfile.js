@@ -1,6 +1,11 @@
 module.exports = function(grunt) {
 
-    var project = 'src/' + 'project' + '/';
+    var project = 'project/';
+
+    var dir = {
+        src: 'src/' + project,
+        dist: 'dist/' + project
+    };
 
     // load helpers
     var helper = {};
@@ -32,12 +37,12 @@ module.exports = function(grunt) {
                         return 'http://example.com/' + url;
                     },
                     getData: function(path) {
-                        return grunt.file.readYAML(project + path);
+                        return grunt.file.readYAML(dir.src + path);
                     }
                 },
-                cwd: 'src/',
+                cwd: dir.src,
                 src: '**/*.ejs',
-                dest: 'dist/',
+                dest: dir.dist,
                 expand: true,
                 ext: '.html',
             },
@@ -47,9 +52,9 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    cwd: project,
-                    src: ['*.scss'],
-                    dest: project + 'styles',
+                    cwd: dir.src,
+                    src: '*.scss',
+                    dest: dir.dist + 'styles',
                     ext: '.css'
                 }]
             }
@@ -57,7 +62,7 @@ module.exports = function(grunt) {
 
         watch: {
             source: {
-                files: 'src/**/*.ejs',
+                files: dir.src + '**/*.ejs',
                 tasks: 'ejs',
                 options: {
                     spawn: false,
