@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    var project = 'project';
+    var project = 'src/' + 'project' + '/';
 
     // load helpers
     var helper = {};
@@ -14,8 +14,8 @@ module.exports = function(grunt) {
     );
 
     // testing
-    helper.dummy('http://example.com', 'null');
-    helper.url_utm('http://example.com', 'CAMPAIGN');
+    // helper.dummy('http://example.com', 'null');
+    // helper.url_utm('http://example.com', 'CAMPAIGN');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -32,15 +32,27 @@ module.exports = function(grunt) {
                         return 'http://example.com/' + url;
                     },
                     getData: function(path) {
-                        return grunt.file.readYAML('src/' + project + '/' + path);
+                        return grunt.file.readYAML(project + path);
                     }
                 },
                 cwd: 'src/',
-                src: '**/*.ejs', // '!partials/**/*'],
+                src: '**/*.ejs',
                 dest: 'dist/',
                 expand: true,
                 ext: '.html',
             },
+        },
+
+        sass: {
+            build: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['*.scss'],
+                    dest: project + 'styles',
+                    ext: '.css'
+                }]
+            }
         },
 
         watch: {
