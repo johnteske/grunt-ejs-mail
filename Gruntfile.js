@@ -77,10 +77,30 @@ module.exports = function(grunt) {
             }
         },
 
+        replace: {
+            dist: {
+                options: {
+                    patterns: [
+                        { match: /\sclass=["'][\w \-]*['"]/g, replacement: '' }, // remove CSS classes
+                        // { match: /<!--([\S\s]*?)-->/g, replacement: '' }, // remove HTML comments
+                        // { match: 'EMAILNAME', replacement: '<%= emailName %>' }, // replace 'EMAILNAME' with GA tag
+                        // { match: '!img', replacement: 'img' } // enable tracking image
+                    ],
+                    usePrefix: false
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: dir.dist + '*.html',
+                    dest: dir.dist
+                }]
+            }
+        },
+
         watch: {
-            source: {
+            dist: {
                 files: dir.src + '**/*.ejs',
-                tasks: ['ejs', 'sass', 'juice'],
+                tasks: ['ejs', 'sass', 'juice', 'replace'],
                 options: {
                     spawn: false,
                     atBegin: true
@@ -97,6 +117,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ejs');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-juice');
+    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['ejs']);

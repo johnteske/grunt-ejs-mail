@@ -11,6 +11,7 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-ejs": "^0.3.0",
-    "grunt-juice": "0.0.2"
+    "grunt-juice": "0.0.2",
+    "grunt-replace": "^1.0.1"
   }
 }
