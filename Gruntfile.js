@@ -82,7 +82,8 @@ module.exports = function(grunt) {
                 options: {
                     patterns: [
                         { match: /\sclass=["'][\w \-]*['"]/g, replacement: '' }, // remove CSS classes
-                        // { match: /<!--([\S\s]*?)-->/g, replacement: '' }, // remove HTML comments
+                        { match: /<!--([\S\s]*?)-->/g, replacement: '' }, // remove HTML comments
+                        { match: /^$/gm, replacement: '' }, // remove empty lines
                         // { match: 'EMAILNAME', replacement: '<%= emailName %>' }, // replace 'EMAILNAME' with GA tag
                         // { match: '!img', replacement: 'img' } // enable tracking image
                     ],
