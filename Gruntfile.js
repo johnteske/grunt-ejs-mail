@@ -62,9 +62,19 @@ module.exports = function(grunt) {
 
         juice: {
             options: {
-                widthElements: ['table', 'td', 'img'], // heightElements: ['img'], // this seems to be a juice option--is it available in grunt-juice?
+                widthElements: ['table', 'td', 'img'],
                 applyWidthAttributes: true,
-                webResources: { images: false }
+                // heightElements: ['img'],
+                // applyHeightAttributes: true,
+                    // also useful for tables and other elements?
+                    // any exclusions for images that should be allowed to collapse?
+                webResources: {
+                    strict: true,
+                    images: false,
+                    scripts: false,
+                    // preserveImportant: true,
+                    // cssmin: true // test if this causes any rendering issues first
+                }
             },
             dist: {
                 files: [{
@@ -79,7 +89,7 @@ module.exports = function(grunt) {
         watch: {
             source: {
                 files: dir.src + '**/*.ejs',
-                tasks: 'ejs',
+                tasks: ['ejs', 'sass', 'juice'],
                 options: {
                     spawn: false,
                     atBegin: true
