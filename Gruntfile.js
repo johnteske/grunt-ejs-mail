@@ -9,7 +9,6 @@ module.exports = function(grunt) {
 
     // load helpers
     var helper = {};
-
     var helperFiles = grunt.file.expand( {cwd: 'helpers'}, ['**/*.js'] );
     helperFiles.forEach(
         function(fileName) {
@@ -17,25 +16,18 @@ module.exports = function(grunt) {
             helper[basename] = require('./helpers/' + fileName)[basename];
         }
     );
-
-    // testing
-    // helper.dummy('http://example.com', 'null');
-    // helper.url_utm('http://example.com', 'CAMPAIGN');
+    // helper.dummy('http://example.com', 'null'); // test
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // add global data
-        // company, logo, social links, etc.
+        // add global data (company, logo, social links, etc.)
         // data: grunt.file.readJSON('data.json'),
 
         ejs: {
             all: {
                 options: {
                     helper: helper,
-                    title: 'My Email',
-                    url: function(url) {
-                        return 'http://example.com/' + url;
-                    },
+                    // could also be loaded as helper
                     getData: function(path) {
                         return grunt.file.readYAML(dir.src + path);
                     }
@@ -97,9 +89,7 @@ module.exports = function(grunt) {
             },
             configFiles: {
                 files: ['Gruntfile.js'],
-                options: {
-                    reload: true
-                }
+                options: { reload: true }
             }
         },
 
