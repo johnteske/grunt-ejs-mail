@@ -60,6 +60,22 @@ module.exports = function(grunt) {
             }
         },
 
+        juice: {
+            options: {
+                widthElements: ['table', 'td', 'img'], // heightElements: ['img'], // this seems to be a juice option--is it available in grunt-juice?
+                applyWidthAttributes: true,
+                webResources: { images: false }
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: dir.dist,
+                    src: '*.html',
+                    dest: dir.dist
+                }]
+            }
+        },
+
         watch: {
             source: {
                 files: dir.src + '**/*.ejs',
@@ -81,6 +97,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-ejs');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-juice');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['ejs']);
