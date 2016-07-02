@@ -1,15 +1,14 @@
 module.exports = function(grunt) {
 
-    var project = 'project/';
-
-    var dir = {
-        src: 'src/' + project,
-        dist: 'dist/' + project
-    };
+    var project = 'project/',
+        dir = {
+            src: 'src/' + project,
+            dist: 'dist/' + project
+        };
 
     // load helpers
-    var helper = {};
-    var helperFiles = grunt.file.expand( {cwd: 'helpers'}, ['**/*.js'] );
+    var helper = {},
+        helperFiles = grunt.file.expand( {cwd: 'helpers'}, ['**/*.js'] );
     helperFiles.forEach(
         function(fileName) {
             var basename = fileName.split('.')[0];
