@@ -86,8 +86,7 @@ module.exports = function(grunt) {
                         { match: /^$/gm, replacement: '' }, // remove empty lines
                         // { match: 'EMAILNAME', replacement: '<%= emailName %>' }, // replace 'EMAILNAME' with GA tag
                         // { match: '!img', replacement: 'img' } // enable tracking image
-                    ],
-                    usePrefix: false
+                    ]
                 },
                 files: [{
                     expand: true,
