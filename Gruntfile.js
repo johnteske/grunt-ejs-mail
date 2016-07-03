@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
     var project = 'project/',
         dir = {
+            partials: 'core/partials/',
             helper: 'core/helpers/',
             src: 'src/' + project,
             dist: 'dist/' + project
@@ -103,7 +104,7 @@ module.exports = function(grunt) {
 
         watch: {
             dist: {
-                files: [dir.src + '**/*.{ejs,yml,scss}', dir.helper + '**/*.js'],
+                files: [dir.src + '**/*.{ejs,yml,scss}', dir.partials + '**/*.ejs', dir.helper + '**/*.js'],
                 tasks: defaultTasks,
                 options: {
                     spawn: false,
