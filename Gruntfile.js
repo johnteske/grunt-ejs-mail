@@ -101,7 +101,7 @@ module.exports = function(grunt) {
 
         watch: {
             dist: {
-                files: dir.src + '**/*.ejs',
+                files: [dir.src + '**/*.ejs', dir.src + '**/*.yml', dir.src + '**/*.scss'],
                 tasks: ['ejs', 'sass', 'juice', 'replace'],
                 options: {
                     spawn: false,
