@@ -19,6 +19,8 @@ module.exports = function(grunt) {
     );
     // helper.dummy('http://example.com', 'null'); // test
 
+    var defaultTasks = ['ejs', 'sass', 'juice', 'replace'];
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         // add global data (company, logo, social links, etc.)
@@ -101,8 +103,8 @@ module.exports = function(grunt) {
 
         watch: {
             dist: {
-                files: dir.src + '**/*.{ejs,yml,scss}',
-                tasks: ['ejs', 'sass', 'juice', 'replace'],
+                files: [dir.src + '**/*.{ejs,yml,scss}', dir.helper + '**/*.js'],
+                tasks: defaultTasks,
                 options: {
                     spawn: false,
                     atBegin: true
@@ -110,6 +112,7 @@ module.exports = function(grunt) {
             },
             configFiles: {
                 files: ['Gruntfile.js'],
+                tasks: defaultTasks,
                 options: { reload: true }
             }
         },
@@ -122,6 +125,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['ejs']);
+    grunt.registerTask('default', defaultTasks);
 
 };
