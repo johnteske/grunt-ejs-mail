@@ -85,6 +85,7 @@ module.exports = function(grunt) {
         replace: {
             dist: {
                 options: {
+                    silent: true,
                     patterns: [
                         { match: /\sclass=["'][\w \-]*['"]/g, replacement: '' }, // remove CSS classes
                         { match: /[\s]*<!--[\S\s]*?-->/g, replacement: '' }, // remove HTML comments // possibly end with [\n\r]*
