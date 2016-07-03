@@ -2,17 +2,19 @@ module.exports = function(grunt) {
 
     var project = 'project/',
         dir = {
+            helper: 'helpers/',
             src: 'src/' + project,
             dist: 'dist/' + project
         };
 
     // load helpers
     var helper = {},
-        helperFiles = grunt.file.expand( {cwd: 'helpers'}, ['**/*.js'] );
+        helperFiles = grunt.file.expand( {cwd: dir.helper}, ['**/*.js'] );
     helperFiles.forEach(
         function(fileName) {
             var basename = fileName.split('.')[0];
-            helper[basename] = require('./helpers/' + fileName)[basename];
+            var helperPath = './' + dir.helper + fileName;
+            helper[basename] = require(helperPath)[basename];
         }
     );
     // helper.dummy('http://example.com', 'null'); // test
