@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
     var project = 'project/',
         dir = {
-            helper: 'helpers/',
+            helper: 'core/helpers/',
             src: 'src/' + project,
             dist: 'dist/' + project
         };
