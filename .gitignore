@@ -9,8 +9,14 @@ node_modules
 npm-debug.log
 
 # default directories
-templates
-src
 build
 dist
 archive
+
+# libraries
+# private repo
+fmail-ejs
+
+# using src/project, for now
+src/*
+!src/project/

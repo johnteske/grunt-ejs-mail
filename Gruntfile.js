@@ -1,9 +1,14 @@
 module.exports = function(grunt) {
 
+    var lib = {
+        dir: 'core/'
+    };
+    lib.data = grunt.file.readJSON(lib.dir + 'data.json');
+
     var project = 'project/',
         dir = {
-            partials: 'core/partials/',
-            helper: 'core/helpers/',
+            partials: lib.dir + 'partials/',
+            helper: lib.dir + 'helpers/',
             src: 'src/' + project,
             dist: 'dist/' + project
         };
@@ -18,18 +23,16 @@ module.exports = function(grunt) {
             helper[basename] = require(helperPath)[basename];
         }
     );
-    // helper.dummy('http://example.com', 'null'); // test
 
     var defaultTasks = ['ejs', 'sass', 'juice', 'replace'];
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // add global data (company, logo, social links, etc.)
-        // data: grunt.file.readJSON('data.json'),
 
         ejs: {
             all: {
                 options: {
+                    lib: lib,
                     helper: helper,
                     // could also be loaded as helper
                     getData: function(path) {
