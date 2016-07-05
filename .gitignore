@@ -13,10 +13,11 @@ build
 dist
 archive
 
-# libraries
-# private repo
-fmail-ejs
+# libraries (but only track core)
+libs/*
+!libs/core/
 
 # using src/project, for now
 src/*
 !src/project/
+src/project/.DS_Store

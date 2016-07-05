@@ -1,9 +1,43 @@
 module.exports = function(grunt) {
 
+    // load libraries
+    var libraries = {},
+        libdirs = grunt.file.expand('libs/*/data.{json,yml}');
+    libdirs.forEach(
+        function(dataPath) {
+            var libpath = dataPath.split('/data')[0],
+                libname = dataPath.split('/')[1],
+                ext = dataPath.split('/')[2],
+                thislib = {};
+
+            // add data
+            if (ext === 'data.json') {
+                thislib.data = grunt.file.readJSON(dataPath);
+            } else if (ext === 'data.yml') {
+                thislib.data = grunt.file.readYAML(dataPath);
+            }
+
+            // load helpers
+            var helpers = {},
+                helperFiles = grunt.file.expand( {cwd: libpath + '/helpers' }, ['**/*.js'] );
+            helperFiles.forEach(
+                function(fileName) {
+                    var basename = fileName.split('.')[0],
+                        helperPath = './' + libpath + '/helpers/' + fileName;
+                    helpers[basename] = require(helperPath)[basename];
+                }
+            );
+            thislib.helper = helpers;
+
+            libraries[libname] = thislib;
+        }
+    );
+
+    // placeholder until partials are added
+    // and helper/partial folder can be watched, dynamically
     var lib = {
-        dir: 'core/'
+        dir: 'libs/core/'
     };
-    lib.data = grunt.file.readJSON(lib.dir + 'data.json');
 
     var project = 'project/',
         dir = {
@@ -13,17 +47,6 @@ module.exports = function(grunt) {
             dist: 'dist/' + project
         };
 
-    // load helpers
-    var helper = {},
-        helperFiles = grunt.file.expand( {cwd: dir.helper}, ['**/*.js'] );
-    helperFiles.forEach(
-        function(fileName) {
-            var basename = fileName.split('.')[0];
-            var helperPath = './' + dir.helper + fileName;
-            helper[basename] = require(helperPath)[basename];
-        }
-    );
-
     var defaultTasks = ['ejs', 'sass', 'juice', 'replace'];
 
     grunt.initConfig({
@@ -32,9 +55,8 @@ module.exports = function(grunt) {
         ejs: {
             all: {
                 options: {
-                    lib: lib,
-                    helper: helper,
-                    // could also be loaded as helper
+                    // libraries are dynamically added after config
+                    // could also be loaded as helper?
                     getData: function(path) {
                         return grunt.file.readYAML(dir.src + path);
                     }
@@ -123,6 +145,22 @@ module.exports = function(grunt) {
         },
 
     });
+
+    var config = {
+        ejs: {
+            all: {
+                options: {
+                    // merge_test: 'NAILED IT'
+                }
+            }
+        }
+    };
+
+    // dynamically add libraries
+    Object.keys(libraries).forEach(function(item) {
+        config.ejs.all.options[item] = libraries[item];
+    });
+    grunt.config.merge(config);
 
     grunt.loadNpmTasks('grunt-ejs');
     grunt.loadNpmTasks('grunt-contrib-sass');
