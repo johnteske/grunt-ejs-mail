@@ -146,21 +146,12 @@ module.exports = function(grunt) {
 
     });
 
-    var config = {
-        ejs: {
-            all: {
-                options: {
-                    // merge_test: 'NAILED IT'
-                }
-            }
-        }
-    };
-
     // dynamically add libraries
+    var lib_config = { ejs: { all: { options: {} } } };
     Object.keys(libraries).forEach(function(item) {
-        config.ejs.all.options[item] = libraries[item];
+        lib_config.ejs.all.options[item] = libraries[item];
     });
-    grunt.config.merge(config);
+    grunt.config.merge(lib_config);
 
     grunt.loadNpmTasks('grunt-ejs');
     grunt.loadNpmTasks('grunt-contrib-sass');
