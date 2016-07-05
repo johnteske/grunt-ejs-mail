@@ -1,7 +1,3 @@
-# system files
-.DS_Store
-._*
-
 # generated files
 node_modules
 .sass-cache
@@ -20,4 +16,8 @@ libs/*
 # using src/project, for now
 src/*
 !src/project/
-src/project/.DS_Store
+
+# system files
+*.DS_Store
+.DS_Store
+._*
