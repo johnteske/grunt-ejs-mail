@@ -29,20 +29,15 @@ module.exports = function(grunt) {
             );
             thislib.helper = helpers;
 
+            // add partial path, relative to project folders
+            thislib.partials = '../../' + libpath + '/partials/';
+
             libraries[libname] = thislib;
         }
     );
 
-    // placeholder until partials are added
-    // and helper/partial folder can be watched, dynamically
-    var lib = {
-        dir: 'libs/core/'
-    };
-
     var project = 'project/',
         dir = {
-            partials: lib.dir + 'partials/',
-            helper: lib.dir + 'helpers/',
             src: 'src/' + project,
             dist: 'dist/' + project
         };
@@ -130,7 +125,7 @@ module.exports = function(grunt) {
 
         watch: {
             dist: {
-                files: [dir.src + '**/*.{ejs,yml,scss}', dir.partials + '**/*.ejs', dir.helper + '**/*.js'],
+                files: [dir.src + '**/*.{ejs,yml,scss}', 'libs/**/{helpers,partials}/**/*.{js,ejs}'],
                 tasks: defaultTasks,
                 options: {
                     spawn: false,

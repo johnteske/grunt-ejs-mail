@@ -1,9 +1,8 @@
 <% data = getData('data.yml') _%>
-<% partials = '../../libs/core/partials/' _%>
-<%- include(partials + 'html-head-body') _%>
+<%- include(core.partials + 'html-head-body') _%>
 <%# EMAIL _%>
     <a href="<%= core.helper.url_utm(core.data.home_url, 'tracked+link') %>"><%= core.data.name %></a>
     <p><%= core.helper.url_utm('dummy', 'test') %></p>
-    <%- include(partials + 'footer') _%>
+    <%- include(core.partials + 'footer') _%>
 <%# /EMAIL _%>
-<%- include(partials + 'body-html-close') _%>
+<%- include(core.partials + 'body-html-close') _%>
