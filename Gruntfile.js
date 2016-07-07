@@ -1,9 +1,11 @@
 module.exports = function(grunt) {
 
+    var path = require('path');
+
     function readData(dataPath) {
-        var ext = dataPath.split('.').pop(); // assumes a normal filename
-        if (ext === 'json') return grunt.file.readJSON(dataPath);
-        else if (ext === 'yml') return grunt.file.readYAML(dataPath);
+        var ext = path.extname(dataPath);
+        if (ext === '.json') return grunt.file.readJSON(dataPath);
+        else if (ext === '.yml') return grunt.file.readYAML(dataPath);
     };
 
     // load libraries
@@ -11,8 +13,7 @@ module.exports = function(grunt) {
         libdirs = grunt.file.expand('libs/*/data.{json,yml}');
     libdirs.forEach(
         function(dataPath) {
-            var libpath = dataPath.split('/data')[0],
-                libname = dataPath.split('/')[1],
+            var libname = dataPath.split('/')[1],
                 thislib = {};
 
             // add data
@@ -20,18 +21,18 @@ module.exports = function(grunt) {
 
             // load helpers
             var helpers = {},
-                helperFiles = grunt.file.expand( {cwd: libpath + '/helpers' }, ['**/*.js'] );
+                helperFiles = grunt.file.expand('libs/' + libname + '/helpers/**/*.js');
             helperFiles.forEach(
-                function(fileName) {
-                    var basename = fileName.split('.')[0],
-                        helperPath = './' + libpath + '/helpers/' + fileName;
+                function(filePath) {
+                    var basename = path.basename(filePath, '.js'),
+                        helperPath = './' + filePath;
                     helpers[basename] = require(helperPath)[basename];
                 }
             );
             thislib.helper = helpers;
 
             // add partial path, relative to project folders
-            thislib.partials = '../../' + libpath + '/partials/';
+            thislib.partials = '../../libs/' + libname + '/partials/';
 
             libraries[libname] = thislib;
         }
