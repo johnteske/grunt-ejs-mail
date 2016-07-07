@@ -1,5 +1,11 @@
 module.exports = function(grunt) {
 
+    function readData(dataPath) {
+        var ext = dataPath.split('.').pop(); // assumes a normal filename
+        if (ext === 'json') return grunt.file.readJSON(dataPath);
+        else if (ext === 'yml') return grunt.file.readYAML(dataPath);
+    };
+
     // load libraries
     var libraries = {},
         libdirs = grunt.file.expand('libs/*/data.{json,yml}');
@@ -7,15 +13,10 @@ module.exports = function(grunt) {
         function(dataPath) {
             var libpath = dataPath.split('/data')[0],
                 libname = dataPath.split('/')[1],
-                ext = dataPath.split('/')[2],
                 thislib = {};
 
             // add data
-            if (ext === 'data.json') {
-                thislib.data = grunt.file.readJSON(dataPath);
-            } else if (ext === 'data.yml') {
-                thislib.data = grunt.file.readYAML(dataPath);
-            }
+            thislib.data = readData(dataPath);
 
             // load helpers
             var helpers = {},
@@ -53,7 +54,7 @@ module.exports = function(grunt) {
                     // libraries are dynamically added after config
                     // could also be loaded as helper?
                     getData: function(path) {
-                        return grunt.file.readYAML(dir.src + path);
+                        return readData(dir.src + path);
                     }
                 },
                 cwd: dir.src,
