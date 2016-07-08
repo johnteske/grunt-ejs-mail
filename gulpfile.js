@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     fs = require('fs'),
+    path = require('path'),
     yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass');
@@ -8,18 +9,20 @@ var gulp = require('gulp'),
 var dirs = {};
 var project = 'project/';
 
-var data = {}; // placeholder data
-data.json = JSON.parse(fs.readFileSync('./libs/core/data.json'));
-data.yaml = yaml.safeLoad(fs.readFileSync('./src/project/data.yml', 'utf-8'));
+function readData(dataPath) {
+    var ext = path.extname(dataPath);
+    if (ext === '.json') return JSON.parse(fs.readFileSync(dataPath));
+    else if (ext === '.yml') return yaml.safeLoad(fs.readFileSync(dataPath, 'utf-8'));
+};
 
 dirs.ejs = ['src/' + project + '/**/*.ejs'];
 gulp.task('ejs', function() {
     return gulp.src(dirs.ejs)
         .pipe(
             ejs(
-                {
-                    json: data.json,
-                    yaml: data.yaml
+                {   // placeholder data
+                    json: readData('./libs/core/data.json'),
+                    yaml: readData('./src/project/data.yml')
                 },
                 {ext:'.html'}
             ).on('error', gutil.log))
