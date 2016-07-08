@@ -5,17 +5,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url" : "https://github.com/johnteske/grunt-ejs-mail.git"
+    "url": "https://github.com/johnteske/grunt-ejs-mail.git"
   },
   "bugs": {
     "url": "https://github.com/johnteske/grunt-ejs-mail/issues"
   },
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-ejs": "^0.3.0",
-    "grunt-juice": "0.0.2",
-    "grunt-replace": "^1.0.1"
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-ejs": "^2.1.2"
   }
 }
