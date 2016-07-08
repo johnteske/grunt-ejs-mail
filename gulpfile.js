@@ -1,11 +1,22 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
+    yaml = require('js-yaml'),
     ejs = require('gulp-ejs');
 
 var project = 'project/';
 
+var data = {}; // placeholder data
+data.json = JSON.parse(fs.readFileSync('./libs/core/data.json'));
+data.yaml = yaml.safeLoad(fs.readFileSync('./src/project/data.yml', 'utf-8'));
+
 gulp.task('ejs', function() {
     return gulp.src('src/' + project + '/**/*.ejs')
-        .pipe(ejs({}, {ext:'.html'}))
+        .pipe(ejs(
+            {
+                json: data.json,
+                yaml: data.yaml
+            },
+            {ext:'.html'}))
         .pipe(gulp.dest('dist/' + project))
 });
 
