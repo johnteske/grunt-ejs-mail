@@ -41,4 +41,4 @@ gulp.task('watch', function() {
     gulp.watch(dirs.sass, ['sass']);
 });
 
-gulp.task('default', ['ejs', 'watch']);
+gulp.task('default', ['ejs', 'sass', 'watch']);
