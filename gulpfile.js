@@ -3,10 +3,14 @@ var gulp = require('gulp'),
 
 var project = 'project/';
 
-gulp.task('ejs', function(){
+gulp.task('ejs', function() {
     return gulp.src('src/' + project + '/**/*.ejs')
         .pipe(ejs({}, {ext:'.html'}))
         .pipe(gulp.dest('dist/' + project))
 });
 
-gulp.task('default', ['ejs']);
+gulp.task('watch', function() {
+    gulp.watch(['src/' + project + '/**/*.ejs'], ['ejs']);
+});
+
+gulp.task('default', ['ejs', 'watch']);
