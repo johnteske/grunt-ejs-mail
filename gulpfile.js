@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     path = require('path'),
     yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    inline = require('gulp-inline-css');
 
 var dirs = {};
 var project = 'project/';
@@ -27,6 +28,8 @@ gulp.task('ejs', function() {
                 {ext:'.html'}
             ).on('error', gutil.log))
         .pipe(gulp.dest('dist/' + project))
+        .pipe(inline())
+        .pipe(gulp.dest('dist/' + project));
 });
 
 dirs.sass = ['src/' + project + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
@@ -37,8 +40,8 @@ gulp.task('sass', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(dirs.ejs, ['ejs']); // dynamically add lib files -- for watch only (helpers and partials)
     gulp.watch(dirs.sass, ['sass']);
+    gulp.watch(dirs.ejs, ['ejs']); // dynamically add lib files -- for watch only (helpers and partials)
 });
 
-gulp.task('default', ['ejs', 'sass', 'watch']);
+gulp.task('default', ['sass', 'ejs', 'watch']);
