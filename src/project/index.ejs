@@ -1,8 +1,8 @@
 <link href="styles/styles.css" media="all" rel="stylesheet" type="text/css" />
-<%# data = getData('data.yml') _%>
+<% data = readData('./src/project/data.yml') _%>
 <%#- include(core.partials + 'html-head-body') _%>
 <%# EMAIL _%>
 <p><%= json.name %></p>
-<p><%= yaml.subject %></p>
+<p><%= data.subject %></p>
 <%# /EMAIL _%>
 <%#- include(core.partials + 'body-html-close') _%>

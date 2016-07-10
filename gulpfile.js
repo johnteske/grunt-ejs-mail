@@ -28,8 +28,8 @@ gulp.task('build', ['sass'], function() {
     return gulp.src(dirs.ejs)
     .pipe(ejs(
         {   // placeholder data
-            json: readData('./libs/core/data.json'),
-            yaml: readData('./src/project/data.yml')
+            readData: function(path){ return readData(path) }, // requires full path
+            json: readData('./libs/core/data.json')
         },
         {ext:'.html'}
     ).on('error', gutil.log))
