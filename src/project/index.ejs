@@ -4,5 +4,6 @@
 <%# EMAIL _%>
 <p><%= json.name %></p>
 <p><%= data.subject %></p>
+<p><%= core.helper.url_utm('http://example.com/', 'campaign') %></p>
 <%# /EMAIL _%>
-<%#- include(core.partials + 'body-html-close') _%>
+<%- include(core.partials + 'body-html-close') _%>

@@ -35,6 +35,12 @@ gulp.task('build', ['sass'], function() {
     .pipe(ejs(
         {   // placeholder data
             readData: function(path){ return readData(path) }, // requires full path
+            core: {
+                helper: {
+                    url_utm: require('./libs/core/helpers/url_utm.js')['url_utm']
+                },
+                partials: '../../libs/core/partials/'
+            },
             json: readData('./libs/core/data.json')
         },
         {ext:'.html'}
