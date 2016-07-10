@@ -10,6 +10,8 @@ var gulp = require('gulp'),
 var dirs = {};
 var project = 'project/';
 
+dirs.data = ['src/' + project + '*.json', 'src/' + project + '*.yml', 'libs/core/data.json'];
+
 function readData(dataPath) {
     var ext = path.extname(dataPath);
     if (ext === '.json') return JSON.parse(fs.readFileSync(dataPath));
@@ -39,7 +41,7 @@ gulp.task('build', ['sass'], function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch([dirs.sass, dirs.ejs], ['build']); // dynamically add lib files -- for watch only (helpers and partials)
+    gulp.watch([dirs.data, dirs.sass, dirs.ejs], ['build']); // dynamically add lib files -- for watch only (helpers and partials)
 });
 
 gulp.task('default', ['build', 'watch']);
