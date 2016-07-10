@@ -16,8 +16,15 @@ function readData(dataPath) {
     else if (ext === '.yml') return yaml.safeLoad(fs.readFileSync(dataPath, 'utf-8'));
 };
 
+dirs.sass = ['src/' + project + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
+gulp.task('sass', function() {
+    return gulp.src(dirs.sass)
+        .pipe(sass())
+        .pipe(gulp.dest('dist/' + project + 'styles'));
+});
+
 dirs.ejs = ['src/' + project + '/**/*.ejs'];
-gulp.task('ejs', function() {
+gulp.task('build', ['sass'], function() {
     return gulp.src(dirs.ejs)
         .pipe(
             ejs(
@@ -32,16 +39,8 @@ gulp.task('ejs', function() {
         .pipe(gulp.dest('dist/' + project));
 });
 
-dirs.sass = ['src/' + project + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
-gulp.task('sass', function() {
-    return gulp.src(dirs.sass)
-        .pipe(sass())
-        .pipe(gulp.dest('dist/' + project + 'styles'));
-});
-
 gulp.task('watch', function() {
-    gulp.watch(dirs.sass, ['sass']);
-    gulp.watch(dirs.ejs, ['ejs']); // dynamically add lib files -- for watch only (helpers and partials)
+    gulp.watch([dirs.sass, dirs.ejs], ['build']); // dynamically add lib files -- for watch only (helpers and partials)
 });
 
-gulp.task('default', ['sass', 'ejs', 'watch']);
+gulp.task('default', ['build', 'watch']);
