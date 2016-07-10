@@ -19,24 +19,23 @@ function readData(dataPath) {
 dirs.sass = ['src/' + project + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
 gulp.task('sass', function() {
     return gulp.src(dirs.sass)
-        .pipe(sass())
-        .pipe(gulp.dest('dist/' + project + 'styles'));
+    .pipe(sass())
+    .pipe(gulp.dest('dist/' + project + 'styles'));
 });
 
 dirs.ejs = ['src/' + project + '/**/*.ejs'];
 gulp.task('build', ['sass'], function() {
     return gulp.src(dirs.ejs)
-        .pipe(
-            ejs(
-                {   // placeholder data
-                    json: readData('./libs/core/data.json'),
-                    yaml: readData('./src/project/data.yml')
-                },
-                {ext:'.html'}
-            ).on('error', gutil.log))
-        .pipe(gulp.dest('dist/' + project))
-        .pipe(inline())
-        .pipe(gulp.dest('dist/' + project));
+    .pipe(ejs(
+        {   // placeholder data
+            json: readData('./libs/core/data.json'),
+            yaml: readData('./src/project/data.yml')
+        },
+        {ext:'.html'}
+    ).on('error', gutil.log))
+    .pipe(gulp.dest('dist/' + project))
+    .pipe(inline())
+    .pipe(gulp.dest('dist/' + project));
 });
 
 gulp.task('watch', function() {
