@@ -1,7 +1,7 @@
 <% data = readData('./src/project/data.yml') _%>
 <%- include(core.partials + 'html-head-body') _%>
 <%# EMAIL _%>
-<p><%= json.name %></p>
+<p><%= core.data.name %></p>
 <p><%= core.helper.url_utm('http://example.com/', 'campaign') %></p>
 <%# /EMAIL _%>
 <%- include(core.partials + 'body-html-close') _%>

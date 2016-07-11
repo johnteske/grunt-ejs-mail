@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     fs = require('fs'),
     path = require('path'),
+    glob = require('glob'),
     yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
@@ -14,13 +15,46 @@ var project = 'project/',
     },
     files = {};
 
-files.data = [dir.source + '*.json', dir.source + '*.yml', 'libs/core/data.json'];
+files.data = glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}');
 
 function readData(dataPath) {
     var ext = path.extname(dataPath);
     if (ext === '.json') return JSON.parse(fs.readFileSync(dataPath));
     else if (ext === '.yml') return yaml.safeLoad(fs.readFileSync(dataPath, 'utf-8'));
 };
+
+// load libraries
+var libraries = {},
+    libdata = glob.sync('libs/*/data.{json,yml}');
+libdata.forEach(
+    function(dataPath) {
+        var libname = dataPath.split('/')[1],
+            thislib = {};
+
+        // add data
+        thislib.data = readData(dataPath);
+
+        // load helpers
+        var helpers = {},
+            helperFiles = glob.sync('libs/' + libname + '/helpers/**/*.js');
+        helperFiles.forEach(
+            function(filePath) {
+                var basename = path.basename(filePath, '.js'),
+                    helperPath = './' + filePath;
+                helpers[basename] = require(helperPath)[basename];
+            }
+        );
+        thislib.helper = helpers;
+
+        // add partial path, relative to project folders
+        thislib.partials = '../../libs/' + libname + '/partials/';
+
+        libraries[libname] = thislib;
+    }
+);
+
+var ejs_options = { readData: function(path){ return readData(path) } };
+for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
 files.sass = [dir.source + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
 gulp.task('sass', function() {
@@ -32,19 +66,8 @@ gulp.task('sass', function() {
 files.ejs = [dir.source + '/**/*.ejs'];
 gulp.task('build', ['sass'], function() {
     return gulp.src(files.ejs)
-    .pipe(ejs(
-        {   // placeholder data
-            readData: function(path){ return readData(path) }, // requires full path
-            core: {
-                helper: {
-                    url_utm: require('./libs/core/helpers/url_utm.js')['url_utm']
-                },
-                partials: '../../libs/core/partials/'
-            },
-            json: readData('./libs/core/data.json')
-        },
-        {ext:'.html'}
-    ).on('error', gutil.log))
+    .pipe(ejs(ejs_options, {ext:'.html'})
+        .on('error', gutil.log))
     .pipe(gulp.dest(dir.dist))
     .pipe(inline())
     .pipe(gulp.dest(dir.dist));
