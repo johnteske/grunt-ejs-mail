@@ -4,6 +4,6 @@
         <%
         stylesheets = [data.styles].reduce(function(a,b){ return a.concat(b) }, []); // to accept string or array
         stylesheets.forEach(function(sheet){ %>
-            <link href="<%= sheet %>" media="all" rel="stylesheet" type="text/css" />
+            <link href="styles/<%= sheet %>" media="all" rel="stylesheet" type="text/css" />
         <% }); %>
     </head>

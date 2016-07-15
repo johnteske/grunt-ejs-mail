@@ -6,4 +6,4 @@ utm_source: "EMAILNAME"
 send_date: 063016 #MMDDYY
 
 # styles
-styles: ['styles/base.css', 'styles/styles.css'] # can be string or array of .css files
+styles: ['base.css', 'styles.css'] # can be string or array of .css files

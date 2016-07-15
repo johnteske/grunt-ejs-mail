@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     path = require('path'),
     glob = require('glob'),
+    flatten = require('gulp-flatten'),
     yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
@@ -56,10 +57,11 @@ libdata.forEach(
 var ejs_options = { readData: function(path){ return readData(path) } };
 for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
-files.sass = [dir.source + '*.scss', 'libs/core/styles/*.scss']; // dynamically add lib files
+files.sass = [dir.source + '*.scss', 'libs/*/styles/*.scss'];
 gulp.task('sass', function() {
     return gulp.src(files.sass)
     .pipe(sass())
+    .pipe(flatten())
     .pipe(gulp.dest('dist/' + project + 'styles'));
 });
 
