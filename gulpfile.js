@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     path = require('path'),
     glob = require('glob'),
     flatten = require('gulp-flatten'),
+    del = require('del'),
     yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
@@ -73,6 +74,10 @@ gulp.task('build', ['sass'], function() {
     .pipe(gulp.dest(dir.dist))
     .pipe(inline())
     .pipe(gulp.dest(dir.dist));
+});
+
+gulp.task('clean', function () {
+  return del(['dist/**/*']);
 });
 
 gulp.task('watch', function() {
