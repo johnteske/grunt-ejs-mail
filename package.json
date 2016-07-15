@@ -11,6 +11,7 @@
     "url": "https://github.com/johnteske/grunt-ejs-mail/issues"
   },
   "dependencies": {
+    "del": "^2.2.1",
     "glob": "^7.0.5",
     "gulp": "^3.9.1",
     "gulp-ejs": "^2.1.2",
