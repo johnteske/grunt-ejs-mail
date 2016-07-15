@@ -14,9 +14,11 @@ var project = 'project/',
         source: 'src/' + project,
         dist: 'dist/' + project
     },
-    files = {};
-
-files.data = glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}');
+    files = {
+        data: glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}'),
+        sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
+        ejs: [dir.source + '/**/*.ejs']
+    };
 
 function readData(dataPath) {
     var ext = path.extname(dataPath);
@@ -57,7 +59,6 @@ libdata.forEach(
 var ejs_options = { readData: function(path){ return readData(path) } };
 for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
-files.sass = [dir.source + '*.scss', 'libs/*/styles/*.scss'];
 gulp.task('sass', function() {
     return gulp.src(files.sass)
     .pipe(sass())
@@ -65,7 +66,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('dist/' + project + 'styles'));
 });
 
-files.ejs = [dir.source + '/**/*.ejs'];
 gulp.task('build', ['sass'], function() {
     return gulp.src(files.ejs)
     .pipe(ejs(ejs_options, {ext:'.html'})
