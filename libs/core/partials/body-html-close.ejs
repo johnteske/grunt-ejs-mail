@@ -1,6 +1,8 @@
-        <%# ONLY IN BUILD/DEV VERSION %>
+        <%# ONLY IN BUILD/DEV VERSION _%>
+        <% if(!production){ %>
         <script src="http://localhost:35729/livereload.js?snipver=1"></script>
+        <% } %>
         <%# ONLY IN DIST VERSION _%>
-        <%# DATA TRACKING PIXEL %>
+        <%- include('tracking') _%>
     </body>
 </html>
