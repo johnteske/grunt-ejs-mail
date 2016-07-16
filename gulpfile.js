@@ -59,7 +59,7 @@ libdata.forEach(
 );
 
 var ejs_options = {
-    readData: function(path){ return readData(path) },
+    readData: function(dataFile){ return readData(dir.source + dataFile) },
     production: production
 };
 

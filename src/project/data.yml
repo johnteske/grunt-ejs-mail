@@ -3,7 +3,7 @@ from: "info@domain.com"
 subject: "Email Subject Line"
 preview: "This is the preview line."
 utm_source: "EMAILNAME"
-send_date: 063016 #MMDDYY
+send_date: "063016" #MMDDYY
 
 # styles
 styles: ['base.css', 'styles.css'] # can be string or array of .css files
