@@ -14,7 +14,7 @@ var production = !!util.env.dist,
     project = 'project/',
     dir = {
         source: 'src/' + project,
-        dest: production ? 'dist/' + project : 'build/' + project
+        dest: (production ? 'dist/' : 'dev/') + project
     },
     files = {
         data: glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}'),
@@ -82,7 +82,7 @@ gulp.task('build', ['sass'], function() {
 });
 
 gulp.task('clean', function () {
-  return del(['dist/**/*']);
+  return del(['dev/**/*', 'dist/**/*']);
 });
 
 gulp.task('watch', function() {
