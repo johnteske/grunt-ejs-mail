@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>dist/<%= data.subject %></title>
+        <title><%= production ? 'dist' : 'build' %>/<%= data.subject %></title>
         <%
         stylesheets = [data.styles].reduce(function(a,b){ return a.concat(b) }, []); // to accept string or array
         stylesheets.forEach(function(sheet){ %>
