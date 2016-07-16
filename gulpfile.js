@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    gutil = require('gulp-util'),
+    util = require('gulp-util'),
     fs = require('fs'),
     path = require('path'),
     glob = require('glob'),
@@ -10,10 +10,11 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     inline = require('gulp-inline-css');
 
-var project = 'project/',
+var production = !!util.env.dist,
+    project = 'project/',
     dir = {
         source: 'src/' + project,
-        dist: 'dist/' + project
+        dest: production ? 'dist/' + project : 'build/' + project
     },
     files = {
         data: glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}'),
@@ -57,23 +58,27 @@ libdata.forEach(
     }
 );
 
-var ejs_options = { readData: function(path){ return readData(path) } };
+var ejs_options = {
+    readData: function(path){ return readData(path) },
+    production: production
+};
+
 for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
 gulp.task('sass', function() {
     return gulp.src(files.sass)
     .pipe(sass())
     .pipe(flatten())
-    .pipe(gulp.dest('dist/' + project + 'styles'));
+    .pipe(gulp.dest(dir.dest + 'styles'));
 });
 
 gulp.task('build', ['sass'], function() {
     return gulp.src(files.ejs)
     .pipe(ejs(ejs_options, {ext:'.html'})
-        .on('error', gutil.log))
-    .pipe(gulp.dest(dir.dist))
+        .on('error', util.log))
+    .pipe(gulp.dest(dir.dest))
     .pipe(inline())
-    .pipe(gulp.dest(dir.dist));
+    .pipe(gulp.dest(dir.dest));
 });
 
 gulp.task('clean', function () {
