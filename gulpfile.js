@@ -86,7 +86,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch([files.data, files.sass, files.ejs], ['build']); // dynamically add lib files -- for watch only (helpers and partials)
+    gulp.watch([files.data, files.sass, files.ejs, 'libs/*/partials/*.ejs'], ['build']);
 });
 
 gulp.task('default', ['build', 'watch']);
