@@ -1,2 +1,64 @@
-// global styles
-body { font-family: Courier; }
+// BASE STYLES AND RESETS
+
+// ;;;;;;;;; //
+// STRUCTURE //
+// ;;;;;;;;; //
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    mso-table-lspace: 0px;
+    mso-table-rspace: 0px;
+}
+
+table, td {
+    border-collapse: collapse;
+    padding: 0;
+}
+
+// ;;;;;; //
+// HEADER //
+// ;;;;;; //
+
+.preview-text {
+    display: none !important;
+    visibility: hidden;
+    mso-hide: all;
+    font-size: 1px;
+    color: #ffffff;
+    line-height: 1px;
+    max-height: 0px;
+    max-width: 0px;
+    opacity: 0;
+    overflow: hidden;
+}
+
+// ;;;;;;;;;; //
+// TYPOGRAPHY //
+// ;;;;;;;;;; //
+
+p {
+    margin: 0; // not supported by Outlook.com
+    padding: 0; // p padding not supported by Outlook 2007/2010
+    margin-bottom: 0; // can use bottom, left, right margins--just not 'top'
+    margin-top: 0; // keep at 0, to be inlined for Gmail fix
+}
+
+// ;;;;;; //
+// IMAGES //
+// ;;;;;; //
+
+img {
+    // -ms-interpolation-mode: bicubic // use if images are fluid
+    // display: block; // common fix for Gmail, Yahoo and Outlook.com in non-IE browsers
+    border: 0 none; // also use border="0" attribute, especially when wrapping image with link
+    outline: none;
+}
+
+a img {
+    border: 0 none; // prevent linked images from displaying border. also use border attribute in img tag (border="0")
+    text-decoration: none; // in case alt text displays
+}
