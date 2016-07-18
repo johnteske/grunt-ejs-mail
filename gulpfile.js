@@ -1,11 +1,7 @@
 var gulp = require('gulp'),
     util = require('gulp-util'),
-    fs = require('fs'),
-    path = require('path'),
-    glob = require('glob'),
     flatten = require('gulp-flatten'),
     del = require('del'),
-    yaml = require('js-yaml'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
     inline = require('gulp-inline-css');
@@ -17,52 +13,21 @@ var production = !!util.env.dist,
         dest: (production ? 'dist/' : 'dev/') + project
     },
     files = {
-        data: glob.sync('{libs,'+ dir.source +'}/**/*.{json,yml}'),
+        data: ['{libs,' + dir.source + '}/**/*.{json,yml}'],
         sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
         ejs: [dir.source + '/**/*.ejs']
     };
 
-function readData(dataPath) {
-    var ext = path.extname(dataPath);
-    if (ext === '.json') return JSON.parse(fs.readFileSync(dataPath));
-    else if (ext === '.yml') return yaml.safeLoad(fs.readFileSync(dataPath, 'utf-8'));
-};
+var readData = require('./readData.js')['readData'];
 
-// load libraries
-var libraries = {},
-    libdata = glob.sync('libs/*/data.{json,yml}');
-libdata.forEach(
-    function(dataPath) {
-        var libname = dataPath.split('/')[1],
-            thislib = {};
-
-        // add data
-        thislib.data = readData(dataPath);
-
-        // load helpers
-        var helpers = {},
-            helperFiles = glob.sync('libs/' + libname + '/helpers/**/*.js');
-        helperFiles.forEach(
-            function(filePath) {
-                var basename = path.basename(filePath, '.js'),
-                    helperPath = './' + filePath;
-                helpers[basename] = require(helperPath)[basename];
-            }
-        );
-        thislib.helper = helpers;
-
-        // add partial path, relative to project folders
-        thislib.partials = '../../libs/' + libname + '/partials/';
-
-        libraries[libname] = thislib;
-    }
-);
+var loadLibraries = require('./libraries.js')['loadLibraries'];
+var libraries = loadLibraries();
 
 var ejs_options = {
     readData: function(dataFile){ return readData(dir.source + dataFile) },
     production: production
 };
-
+// add library helpers and partials for access in ejs
 for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
 gulp.task('sass', function() {
