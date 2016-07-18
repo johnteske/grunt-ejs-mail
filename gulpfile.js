@@ -13,9 +13,9 @@ var production = !!util.env.dist,
         dest: (production ? 'dist/' : 'dev/') + project
     },
     files = {
-        data: ['{libs,' + dir.source + '}/**/*.{json,yml}'],
+        data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
         sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
-        ejs: [dir.source + '/**/*.ejs']
+        ejs: [dir.source + '**/*.ejs']
     };
 
 var readData = require('./readData.js')['readData'];
