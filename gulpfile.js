@@ -7,7 +7,7 @@ var gulp = require('gulp'),
     inline = require('gulp-inline-css');
 
 var production = !!util.env.dist,
-    project = 'project/',
+    project = (util.env.project || 'project') + '/',
     dir = {
         source: 'src/' + project,
         dest: (production ? 'dist/' : 'dev/') + project
