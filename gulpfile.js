@@ -21,8 +21,7 @@ var dir = {
 
 var readData = require('./readData.js')['readData'];
 
-var loadLibraries = require('./libraries.js')['loadLibraries'];
-var libraries = loadLibraries();
+var libraries = require('./libraries.js').loadLibraries();
 
 var ejs_options = {
     readData: function(dataFile){ return readData(dir.source + dataFile) },
