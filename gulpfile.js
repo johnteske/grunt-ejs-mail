@@ -6,8 +6,8 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     inline = require('gulp-inline-css');
 
-production = !!util.env.dist; // usable in helpers
-project = (util.env.project || 'project') + '/';
+production = !!util.env.dist;
+project = util.env.project + '/';
 
 var dir = {
         source: 'src/' + project,
@@ -30,6 +30,12 @@ var ejs_options = {
 // add library helpers and partials for access in ejs
 for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
 
+var library = (util.env.library || 'core') + '/';
+gulp.task('new', function() {
+    return gulp.src('libs/' + library + 'templates/**/*')
+    .pipe(gulp.dest(dir.source));
+});
+
 gulp.task('sass', function() {
     return gulp.src(files.sass)
     .pipe(sass())
@@ -47,7 +53,7 @@ gulp.task('build', ['sass'], function() {
 });
 
 gulp.task('clean', function () {
-  return del(['dev/**/*', 'dist/**/*']);
+    return del(['dev/**/*', 'dist/**/*']);
 });
 
 gulp.task('watch', function() {

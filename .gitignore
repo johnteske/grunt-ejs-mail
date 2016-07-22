@@ -8,15 +8,12 @@ npm-debug.log
 build
 dev
 dist
+src
 archive
 
 # libraries (but only track core)
 libs/*
 !libs/core/
-
-# using src/project, for now
-src/*
-!src/project/
 
 # system files
 *.DS_Store
