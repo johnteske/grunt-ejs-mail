@@ -2,7 +2,7 @@
 from: "info@domain.com"
 subject: "Email Subject Line"
 preview: "This is the preview line."
-utm_source: "EMAILNAME"
+utm_source: "Test+Tag"
 send_date: "063016" #MMDDYY
 
 # styles

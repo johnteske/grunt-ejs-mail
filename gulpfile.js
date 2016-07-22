@@ -6,9 +6,10 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     inline = require('gulp-inline-css');
 
-var production = !!util.env.dist,
-    project = (util.env.project || 'project') + '/',
-    dir = {
+production = !!util.env.dist; // usable in helpers
+project = (util.env.project || 'project') + '/';
+
+var dir = {
         source: 'src/' + project,
         dest: (production ? 'dist/' : 'dev/') + project
     },

@@ -1,7 +1,7 @@
-module.exports.url_utm = function (url, campaign) {
+module.exports.url_utm = function (url, source, campaign) {
     var tag = '';
-    var source = data.utm_source;
-    
+    source = production ? data.utm_source : 'EMAILNAME';
+
     if(typeof campaign !== 'undefined'){
         tag = '?utm_source=' + source + '&utm_medium=email&utm_campaign=' +
             campaign

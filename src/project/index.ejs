@@ -2,6 +2,6 @@
 <%- include(core.partials + 'html-head-body') _%>
 <%# EMAIL _%>
 <p><%= data.send_date %></p>
-<p><%= core.helper.url_utm('http://example.com/', 'campaign') %></p>
+<p><%= core.helper.url_utm('http://example.com/', data.utm_source, 'campaign') %></p>
 <%# /EMAIL _%>
 <%- include(core.partials + 'body-html-close') _%>
