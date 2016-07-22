@@ -57,6 +57,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function() {
+    // gulp.watch(['libs/*/templates/*'], ['new']); // for developing templates
     gulp.watch([files.data, files.sass, files.ejs, 'libs/*/partials/*.ejs'], ['build']);
 });
 
