@@ -1,14 +1,14 @@
 {
-  "name": "grunt-ejs-mail",
+  "name": "gulp-ejs-mail",
   "version": "0.1.0",
   "description": "ejs-compiled HTML emails",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johnteske/grunt-ejs-mail.git"
+    "url": "https://github.com/johnteske/gulp-ejs-mail.git"
   },
   "bugs": {
-    "url": "https://github.com/johnteske/grunt-ejs-mail/issues"
+    "url": "https://github.com/johnteske/gulp-ejs-mail/issues"
   },
   "dependencies": {
     "del": "^2.2.1",
