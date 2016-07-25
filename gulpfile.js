@@ -48,7 +48,11 @@ gulp.task('build', ['sass'], function() {
     .pipe(ejs(ejs_options, {ext:'.html'})
         .on('error', util.log))
     .pipe(gulp.dest(dir.dest))
-    .pipe(inline())
+    .pipe(inline({
+        applyWidthAttributes: true,
+        applyTableAttributes: true, // border, cellpadding and cellspacing
+        removeHtmlSelectors: true
+    }))
     .pipe(gulp.dest(dir.dest));
 });
 
