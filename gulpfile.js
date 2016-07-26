@@ -11,7 +11,7 @@ project = util.env.project + '/';
 
 var dir = {
         source: 'src/' + project,
-        dest: (production ? 'dist/' : 'dev/') + project
+        dest: 'build/' + project
     },
     files = {
         data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
@@ -57,7 +57,7 @@ gulp.task('build', ['sass'], function() {
 });
 
 gulp.task('clean', function () {
-    return del(['dev/**/*', 'dist/**/*']);
+    return del('build/**/*');
 });
 
 gulp.task('watch', function() {
