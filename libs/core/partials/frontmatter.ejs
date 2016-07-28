@@ -1,11 +1,17 @@
 <% if(!production){ %>
 <div id="frontmatter-wrapper">
     <div id="frontmatter">
-        From: <%= data.from %><br />
-        Subject: <%= data.subject %><br />
-        Preview: <%= data.preview %><br />
-        utm_source: <%= data.utm_source %><br />
-        Last updated: <%= Date().toString().split("GMT")[0]; %><br />
+        <div>
+            From: <%= data.from %><br />
+            Reply: <br />
+            Subject: <%= data.subject %><br />
+            Preview: <%= data.preview %><br />
+        </div>
+        <div>
+            <%- include('view-source') %>
+            utm_source: <%= data.utm_source %><br />
+            Last updated: <%= Date().toString().split("GMT")[0]; %><br />
+        </div>
     </div>
 </div>
 <% } %>
