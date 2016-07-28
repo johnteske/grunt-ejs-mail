@@ -1,4 +1,7 @@
 <script>
-    function viewSource(){return window.location="view-source:"+window.location;}
+    function viewSource() {
+        var emailContent = document.getElementById('email-content').innerHTML;
+        window.open("data:text," + encodeURIComponent(emailContent), "_blank");
+    }
 </script>
 <a href="javascript:viewSource()">View source</a><br />
