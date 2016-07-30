@@ -8,23 +8,20 @@ var gulp = require('gulp'),
 
 production = !!util.env.dist;
 project = util.env.project + '/';
-
-var dir = {
+dir = {
         source: 'src/' + project,
         dest: 'build/' + project
-    },
-    files = {
+    };
+
+var files = {
         data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
         sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
         ejs: [dir.source + '**/*.ejs']
     };
 
-var readData = require('./readData.js')['readData'];
-
 var libraries = require('./libraries.js').loadLibraries();
 
 var ejs_options = {
-    readData: function(dataFile){ return readData(dir.source + dataFile) },
     production: production
 };
 // add library helpers and partials for access in ejs

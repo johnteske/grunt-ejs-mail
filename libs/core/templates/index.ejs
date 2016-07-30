@@ -1,4 +1,4 @@
-<% data = readData('data.yml') _%>
+<% data = core.helper.readData(dir.source + 'data.yml') _%>
 <%- include(core.partials + 'html-head-body') _%>
 <%# EMAIL _%>
 <p><%= data.send_date %></p>
