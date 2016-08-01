@@ -15,12 +15,13 @@ module.exports.loadLibraries = function (dataPath) {
 
             // load helpers
             var helpers = {},
-                helperFiles = glob.sync('libs/' + libname + '/helpers/**/*.js');
+                helperFiles = glob.sync('./libs/' + libname + '/helpers/**/*.js');
             helperFiles.forEach(
-                function(filePath) {
-                    var basename = path.basename(filePath, '.js'),
-                        helperPath = './' + filePath;
-                    helpers[basename] = require(helperPath)[basename];
+                function(helperPath) {
+                    var thishelper = require(helperPath);
+                    for (helper in thishelper) {
+                        helpers[helper] = thishelper[helper];
+                    }
                 }
             );
             thislib.helper = helpers;
