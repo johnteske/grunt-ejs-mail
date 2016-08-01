@@ -18,7 +18,7 @@ module.exports.loadLibraries = function (dataPath) {
             helperFiles.forEach(
                 function(helperPath) {
                     var thishelper = require(helperPath);
-                    for (helper in thishelper) {
+                    for (var helper in thishelper) {
                         helpers[helper] = thishelper[helper];
                     }
                 }
