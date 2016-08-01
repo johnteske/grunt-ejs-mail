@@ -1,5 +1,4 @@
 var glob = require('glob'),
-    path = require('path'),
     readData = require('./libs/core/helpers/readData.js')['readData'];
 
 module.exports.loadLibraries = function (dataPath) {
