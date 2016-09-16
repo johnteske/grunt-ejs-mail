@@ -15,8 +15,10 @@ dir = {
 
 var files = {
         data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
+        partials: ['libs/*/partials/*.ejs'],
         sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
-        ejs: [dir.source + '**/*.ejs']
+        ejs: [dir.source + '**/!(_)*.ejs'],
+        _ejs: [dir.source + '**/_*.ejs'] // project partials
     };
 
 var libraries = require('./libraries.js').loadLibraries();
@@ -59,7 +61,7 @@ gulp.task('clean', function () {
 
 gulp.task('watch', function() {
     // gulp.watch(['libs/*/templates/*'], ['new']); // for developing templates
-    gulp.watch([files.data, files.sass, files.ejs, 'libs/*/partials/*.ejs'], ['build']);
+    gulp.watch([files.data, files.partials, files.sass, files.ejs, files._ejs], ['build']);
 });
 
 gulp.task('default', ['build', 'watch']);
