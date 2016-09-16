@@ -11,9 +11,10 @@
     "url": "https://github.com/johnteske/gulp-ejs-mail/issues"
   },
   "scripts": {
-    "git_libraries": "for dir in $(find . -name '.git'); do cd ${dir%/*}; echo -e '\\033[0;36m'$PWD'\\033[0m'; git $GIT_CMD; echo ''; cd - > /dev/null; done",
-    "git_pull": "GIT_CMD='pull' npm run git_libraries",
-    "git_status": "GIT_CMD='status' npm run git_libraries"
+    "git_func": "for dir in $(find . -name '.git'); do cd ${dir%/*}; echo -e '\\033[0;36m'$PWD'\\033[0m'; git $GIT_CMD; echo ''; cd - > /dev/null; done",
+    "git_pull": "GIT_CMD='pull --ff-only' npm run git_func",
+    "git_status": "GIT_CMD='status -s -b' npm run git_func",
+    "update": "npm run git_pull; npm install"
   },
   "dependencies": {
     "del": "^2.2.1",
