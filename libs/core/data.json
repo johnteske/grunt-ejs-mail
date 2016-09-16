@@ -1,4 +1,5 @@
 {
     "name": "grunt-ejs-mail",
-    "home_url": "https://github.com/johnteske/grunt-ejs-mail/"
+    "home_url": "https://github.com/johnteske/grunt-ejs-mail/",
+    "tracking_html": "<img src='http://placekitten.com/20/20' />"
 }
