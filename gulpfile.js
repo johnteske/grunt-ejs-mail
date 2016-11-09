@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
     inline = require('gulp-inline-css'),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    objectAssign = require('object-assign'); // dependency of gulp
 
 production = !!util.env.dist;
 project = util.env.project + '/';
@@ -24,11 +25,7 @@ var files = {
 
 var libraries = require('./libraries.js').loadLibraries();
 
-var ejs_options = {
-    production: production
-};
-// add library helpers and partials for access in ejs
-for (var attrname in libraries) { ejs_options[attrname] = libraries[attrname]; }
+var ejs_options = objectAssign({production: production}, libraries);
 
 var library = (util.env.library || 'core') + '/';
 gulp.task('new', function() {
