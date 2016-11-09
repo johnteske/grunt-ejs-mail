@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     del = require('del'),
     ejs = require('gulp-ejs'),
     sass = require('gulp-sass'),
-    inline = require('gulp-inline-css');
+    inline = require('gulp-inline-css'),
+    plumber = require('gulp-plumber');
 
 production = !!util.env.dist;
 project = util.env.project + '/';
@@ -44,6 +45,7 @@ gulp.task('sass', function() {
 
 gulp.task('build', ['sass'], function() {
     return gulp.src(files.ejs)
+    .pipe(plumber())
     .pipe(ejs(ejs_options, {ext:'.html'})
         .on('error', util.log))
     .pipe(gulp.dest(dir.dest))
