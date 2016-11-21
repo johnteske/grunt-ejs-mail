@@ -1,7 +1,7 @@
 var glob = require('glob'),
     readData = require('./libs/core/helpers/readData.js')['readData'];
 
-module.exports.loadLibraries = function (dataPath) {
+module.exports.loadLibraries = function() {
     var libraries = {},
         libdata = glob.sync('libs/*/data.{json,yml}');
     libdata.forEach(

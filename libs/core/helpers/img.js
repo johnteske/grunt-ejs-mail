@@ -5,13 +5,13 @@ module.exports.img = function(src, width, height, attr) {
         heightAttr = '';
     if(attr && 'class' in attr){
         classAtrr = 'class="' + attr.class + '" ';
-    };
+    }
     if(attr && 'alt' in attr){
         altAttr = 'alt="' + attr.alt + '" ';
-    };
+    }
     if(attr && 'fixedHeight' in attr){
         heightAttr = 'height="' + height + '" ';
-    };
+    }
 
     return '<img ' +
         classAtrr +

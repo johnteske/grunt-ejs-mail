@@ -11,21 +11,21 @@ var gulp = require('gulp'),
 production = !!util.env.dist;
 project = util.env.project + '/';
 dir = {
-        source: 'src/' + project,
-        dest: 'build/' + project
-    };
+    source: 'src/' + project,
+    dest: 'build/' + project
+};
 
 var files = {
-        data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
-        partials: ['libs/*/partials/*.ejs'],
-        sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
-        ejs: [dir.source + '**/!(_)*.ejs'],
-        _ejs: [dir.source + '**/_*.ejs'] // project partials
-    };
+    data: ['{libs/,' + dir.source + '}**/*.{json,yml}'],
+    partials: ['libs/*/partials/*.ejs'],
+    sass: [dir.source + '*.scss', 'libs/*/styles/*.scss'],
+    ejs: [dir.source + '**/!(_)*.ejs'],
+    _ejs: [dir.source + '**/_*.ejs'] // project partials
+};
 
 var libraries = require('./libraries.js').loadLibraries();
 
-var ejs_options = objectAssign({production: production}, libraries);
+var ejs_options = objectAssign(libraries); // production has no effect here
 
 var library = (util.env.library || 'core') + '/';
 gulp.task('new', function() {
