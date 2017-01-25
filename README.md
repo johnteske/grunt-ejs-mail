@@ -29,5 +29,13 @@ npm install
 #### Clean `build/` directory
 `gulp clean`
 
+### Helpful scripts
+
+#### `npm run update`
+Pulls main repo and library repos, then installs node packages.
+
+#### `npm run git_status`
+Runs `git status` on main repo and library repos.
+
 [gulp]: http://gulpjs.com/
 [ejs]: https://github.com/mde/ejs
