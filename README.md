@@ -14,7 +14,20 @@ cd gulp-ejs-mail
 npm install
 ```
 
-<!-- `$ gulp new --library core --project newsletter` -->
+### Basic development commands
+
+#### Create a new project
+`gulp new --library core --project newsletter`
+
+#### Build project
+- Development: `gulp build --project newsletter`
+- Distribution/testing: `gulp build --project newsletter --dist`
+
+#### Watch project
+`gulp --project newsletter`
+
+#### Clean `build/` directory
+`gulp clean`
 
 [gulp]: http://gulpjs.com/
 [ejs]: https://github.com/mde/ejs
